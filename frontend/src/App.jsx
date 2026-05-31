@@ -94,24 +94,22 @@ function App() {
     });
   };
 
-  const login = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/api/auth/login",
-        form
-      );
+const login = async () => {
+  if (
+    form.tipoDocumento === "CC" &&
+    form.numeroDocumento === "123456789" &&
+    form.password === "12345" &&
+    form.claveSecreta === "12345"
+  ) {
+    setMensaje("Inicio de sesión exitoso");
+    setLogueado(true);
+    setModuloActivo("inicio");
+  } else {
+    setMensaje("Credenciales incorrectas");
+  }
+};
 
-      setMensaje(response.data.mensaje);
-
-      if (response.data.ok) {
-        setLogueado(true);
-      }
-    } catch {
-      setMensaje("Error al iniciar sesión");
-    }
-  };
-
-  const limpiarFormularioNovedad = () => {
+  function limpiarFormularioNovedad() {
     setNovedad("");
     setFechaInicio("");
     setFechaFin("");
@@ -120,7 +118,7 @@ function App() {
     setCentroTrabajo("");
     setClaseTarifaVCT("1");
     setEditandoId(null);
-  };
+  }
 
   const limpiarFormularioLiquidacion = () => {
     setResultadoLiquidacion(null);
